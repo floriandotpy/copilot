@@ -19,7 +19,10 @@ h2 { font-size: 2.5rem; }
 h3 { font-size: 2.0rem; }
 h4 { font-size: 1.5rem; }
 
-h1,h2,h3,h4 { font-weight: 600; }
+h1,h2,h3,h4 {
+    font-weight: 600;
+    letter-spacing: 0;
+}
 
 a { text-decoration: none; }
 small { text-transform: uppercase; }
@@ -33,7 +36,7 @@ small { text-transform: uppercase; }
 
 .site-header {
     margin-bottom: 3rem;
-    background: #1EAEDB;
+    border-bottom: 1px #eee solid;
 }
 
 .site-brand {
