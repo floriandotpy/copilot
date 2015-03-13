@@ -11,7 +11,7 @@ Don't hesitate to provide feedback - help making Copilot more awesome.
 
 Please don't get shocked:
 
-- PHP 5.4+
+```PHP 5.4+```
 
 Don't look any further. That's it.
 
