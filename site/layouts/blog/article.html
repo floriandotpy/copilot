@@ -8,23 +8,23 @@
     {% $article = $page %}
 
     <p>
-        <small><a href="@route('/blog')">Blog</a> / Article</small>
+        <a class="button button-primary" href="@route('/blog')">Back to index</a>
     </p>
 
 @endif
 
 <article>
 
-    <h3>{{ $article->meta('title') }}</h3>
-
     @if( $article->meta('created') )
 
-    <small>{{ date('d. M Y', strtotime($article->meta('created'))) }}</small>
+    <div class="u-mb">
+        <span class="badge u-text-upper">{{ date('d. M Y', strtotime($article->meta('created'))) }}</span>
+    </div>
 
     @endif
+
+    <h3>{{ $article->meta('title') }}</h3>
 
     {{ $article->content() }}
 
 </article>
-
-<hr>

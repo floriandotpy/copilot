@@ -14,7 +14,7 @@ body {
     font-size: 1.8em;
 }
 
-h1 { font-size: 3.0rem; }
+h1 { font-size: 3.0rem; margin-bottom: 4rem; }
 h2 { font-size: 2.5rem; }
 h3 { font-size: 2.0rem; }
 h4 { font-size: 1.5rem; }
@@ -25,7 +25,49 @@ h1,h2,h3,h4 {
 }
 
 a { text-decoration: none; }
-small { text-transform: uppercase; }
+
+
+/* Utilities
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.u-text-muted { color: #eee; }
+.u-text-small { font-size: 1.3rem; }
+.u-text-upper { text-transform: uppercase; }
+
+.u-mb { margin-bottom: 2rem !important; }
+.u-mbs { margin-bottom: 1rem !important; }
+.u-mbl { margin-bottom: 4rem !important; }
+.u-mt { margin-top: 2rem !important; }
+.u-mts { margin-top: 1rem !important; }
+.u-mtl { margin-top: 4rem !important; }
+
+.badge {
+    padding: 0.5rem 1rem;
+    background: #444;
+    font-size: 1rem;
+    color: #fff;
+    border-radius: 2px;
+}
+.badge-primary {
+    background-color: #1EAEDB;
+}
+
+.panel {
+    padding: 2rem;
+    border: 1px #eee solid;
+    border-radius: 2px;
+    margin: 2rem 0;
+}
+
+.panel + .panel {
+    margin-top: 0;
+}
+
+.panel-primary {
+    background: #EBF7FD;
+    color: #2D7091;
+    border: 1px solid rgba(45, 112, 145, 0.3)
+}
+
 
 .site-header > div,
 .navbar {
