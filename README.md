@@ -1,6 +1,6 @@
 # Copilot
 
-Cockpit is a file based content management system with focus on simplicity and flexibility.
+Copilot is a file based content management system with focus on simplicity and flexibility.
 
 ## Starter package
 
