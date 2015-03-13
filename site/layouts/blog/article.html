@@ -13,18 +13,21 @@
 
 @endif
 
-<article>
+<article class="article">
+
+    <h2 class="article-title"><a href="{{ $article->url() }}">{{ $article->meta('title') }}</a></h2>
 
     @if( $article->meta('created') )
 
-    <div class="u-mb">
-        <span class="badge u-text-upper">{{ date('d. M Y', strtotime($article->meta('created'))) }}</span>
+    <div class="article-meta">
+        {{ date('d. M Y', strtotime($article->meta('created'))) }}
+        By {{ $article->meta('author') }}
     </div>
 
     @endif
 
-    <h3>{{ $article->meta('title') }}</h3>
-
-    {{ $article->content() }}
+    <div class="article-content">
+        {{ $article->content() }}
+    </div>
 
 </article>

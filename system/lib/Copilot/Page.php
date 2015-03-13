@@ -539,7 +539,7 @@ class Page {
 
         while ($dir != CP_ROOT_DIR) {
 
-            $metafile = "{$dir}/meta.yaml";
+            $metafile = "{$dir}/_meta.yaml";
 
             if (!isset(self::$metaCache[$metafile])) {
 

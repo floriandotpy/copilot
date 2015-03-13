@@ -1,11 +1,20 @@
 <?php
 
-global $site;
+/**
+ * app start time
+ */
+define('CP_START_TIME', microtime(true));
+
+/**
+ * dedicated to the good ol' php days
+ * and all wp devs ;-)
+ */
+global $copilot;
 
 /*
- * Autoload from system/vendor (PSR-0)
+ * Register default autoloader
+ * to load libs from system/vendor
  */
-
 spl_autoload_register(function($class){
 
     $class = str_replace('\\', '/', $class).'.php';
@@ -20,12 +29,9 @@ spl_autoload_register(function($class){
     }
 });
 
-define('CP_START_TIME', microtime(true));
-
 /*
  * Collect needed paths + routes
  */
-
 $CP_ROOT_DIR    = str_replace(DIRECTORY_SEPARATOR, '/', dirname(__DIR__));
 $CP_DOCS_ROOT   = str_replace(DIRECTORY_SEPARATOR, '/', isset($_SERVER['DOCUMENT_ROOT']) ? realpath($_SERVER['DOCUMENT_ROOT']) : $CP_ROOT_DIR);
 
@@ -56,65 +62,73 @@ define('CP_CURRENT_ROUTE', $CP_ROUTE);
 // include helper functions
 include(__DIR__.'/functions.php');
 
-// create Lime\App
-$site = new Lime\App(array_replace_recursive(
+/**
+ * create Lime\App
+ */
+$copilot = new Lime\App(array_replace_recursive(
     include($CP_ROOT_DIR.'/system/config/config.php'),
     $CP_CONFIG
 ));
 
 // set default timezone
-date_default_timezone_set($site['timezone']);
+date_default_timezone_set($copilot['timezone']);
 
-$site["site.config"] = $CP_CONFIG;
+// cache config for later access
+$copilot["site.config"] = $CP_CONFIG;
 
-// init static Site helper
-copi::init($site);
+// init static copilot helper
+copi::init($copilot);
 
-// register path namespaces
-$site->path('site'    , CP_ROOT_DIR);
-$site->path('docroot' , CP_DOCS_ROOT);
-$site->path('storage' , CP_ROOT_DIR.'/storage');
-$site->path('tmp'     , CP_ROOT_DIR.'/storage/tmp');
-$site->path('content' , CP_ROOT_DIR.'/content');
-$site->path('uploads' , CP_ROOT_DIR.'/storage/uploads');
-$site->path('theme'   , CP_ROOT_DIR.'/site/theme');
+/**
+ * register path namespaces
+ */
+$copilot->path('site'    , CP_ROOT_DIR);
+$copilot->path('docroot' , CP_DOCS_ROOT);
+$copilot->path('storage' , CP_ROOT_DIR.'/storage');
+$copilot->path('tmp'     , CP_ROOT_DIR.'/storage/tmp');
+$copilot->path('content' , CP_ROOT_DIR.'/content');
+$copilot->path('uploads' , CP_ROOT_DIR.'/storage/uploads');
+$copilot->path('theme'   , CP_ROOT_DIR.'/site/theme');
 
 #config
-$site->path('config'  , CP_ROOT_DIR.'/system/config');
-$site->path('config'  , CP_ROOT_DIR.'/site/config');
+$copilot->path('config'  , CP_ROOT_DIR.'/system/config');
+$copilot->path('config'  , CP_ROOT_DIR.'/site/config');
 
 #assets
-$site->path('assets'  , CP_ROOT_DIR.'/system/assets');
-$site->path('assets'  , CP_ROOT_DIR.'/site/assets');
+$copilot->path('assets'  , CP_ROOT_DIR.'/system/assets');
+$copilot->path('assets'  , CP_ROOT_DIR.'/site/assets');
 
-$site->path('modules' , CP_ROOT_DIR.'/system/modules');
-$site->path('modules' , CP_ROOT_DIR.'/site/modules');
+$copilot->path('modules' , CP_ROOT_DIR.'/system/modules');
+$copilot->path('modules' , CP_ROOT_DIR.'/site/modules');
 
 # snippets
-$site->path('snippets', CP_ROOT_DIR.'/system/snippets');
-$site->path('snippets', CP_ROOT_DIR.'/site/snippets');
-$site->path('snippets', CP_ROOT_DIR.'/site/theme/snippets');
-
+$copilot->path('snippets', CP_ROOT_DIR.'/system/snippets');
+$copilot->path('snippets', CP_ROOT_DIR.'/site/snippets');
+$copilot->path('snippets', CP_ROOT_DIR.'/site/theme/snippets');
 
 # layouts
-$site->path('layouts' , CP_ROOT_DIR.'/system/layouts');
-$site->path('layouts' , CP_ROOT_DIR.'/site/layouts');
-$site->path('layouts' , CP_ROOT_DIR.'/site/theme/layouts');
+$copilot->path('layouts' , CP_ROOT_DIR.'/system/layouts');
+$copilot->path('layouts' , CP_ROOT_DIR.'/site/layouts');
+$copilot->path('layouts' , CP_ROOT_DIR.'/site/theme/layouts');
 
 # data
-$site->path('data' , CP_ROOT_DIR.'/storage/data');
+$copilot->path('data' , CP_ROOT_DIR.'/storage/data');
 
 # set cache path
-$site("cache")->setCachePath(CP_ROOT_DIR.'/storage/tmp');
-$site("yaml")->setCachePath(CP_ROOT_DIR.'/storage/tmp');
+$copilot("cache")->setCachePath(CP_ROOT_DIR.'/storage/tmp');
+$copilot("yaml")->setCachePath(CP_ROOT_DIR.'/storage/tmp');
 
-
-if ($site['cockpit']) {
-    include_once($site->retrieve('cockpit/path', CP_ROOT_DIR.'/cockpit').'/bootstrap.php');
+/**
+ * check for bootsraping Cockpit
+ */
+if ($copilot['cockpit']) {
+    include_once($copilot->retrieve('cockpit/path', CP_ROOT_DIR.'/cockpit').'/bootstrap.php');
 }
 
-// renderer service
-$site->service('renderer', function() use($site) {
+/**
+ * register view macros
+ */
+$copilot->service('renderer', function() use($copilot) {
 
     $renderer = new \Lexy();
 
@@ -176,12 +190,14 @@ $site->service('renderer', function() use($site) {
     return $renderer;
 });
 
+/**
+ * load modules
+ */
+$copilot->loadModules([CP_ROOT_DIR.'/system/modules', CP_ROOT_DIR.'/modules']);
 
-
-// load modules
-$site->loadModules([CP_ROOT_DIR.'/system/modules', CP_ROOT_DIR.'/modules']);
-
-// bootstrap site
+/**
+ * bootstrap site
+ */
 include(CP_ROOT_DIR.'/site/bootstrap.php');
 
 /*
@@ -189,7 +205,7 @@ include(CP_ROOT_DIR.'/site/bootstrap.php');
  */
 
 // map content pages to route
-$site->on("copi.init", function() {
+$copilot->on("copi.init", function() {
 
     $this->bind('/*', function() {
 
@@ -199,9 +215,11 @@ $site->on("copi.init", function() {
 }, 1000);
 
 // handle error pages
-$site->on("after", function() {
+$copilot->on("after", function() {
 
-    // some system info
+    /**
+     * some system info
+     */
     define('CP_END_TIME'     , microtime(true));
     define('CP_DURATION_TIME', CP_END_TIME - CP_START_TIME);
     define('CP_MEMORY_USAGE' , (memory_get_peak_usage(false)/1024/1024));
@@ -241,8 +259,10 @@ $site->on("after", function() {
             break;
     }
 
-    // send some debug information
-    // back to client
+    /**
+     * send some debug information
+     * back to client (visible in the network panel)
+     */
     if ($this['debug'] && !headers_sent()) {
 
         header('COPILOT_DURATION_TIME: '.CP_DURATION_TIME.'sec');

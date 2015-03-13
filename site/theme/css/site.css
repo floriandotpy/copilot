@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800);
-@import url(normalize.css);
-@import url(skeleton.css);
+@import url(vendor/normalize.css);
+@import url(vendor/skeleton.css);
 
 
 
@@ -14,7 +14,7 @@ body {
     font-size: 1.8em;
 }
 
-h1 { font-size: 3.0rem; margin-bottom: 4rem; }
+h1 { font-size: 3.0rem; margin-bottom: 3rem; }
 h2 { font-size: 2.5rem; }
 h3 { font-size: 2.0rem; }
 h4 { font-size: 1.5rem; }
@@ -27,9 +27,11 @@ h1,h2,h3,h4 {
 a { text-decoration: none; }
 
 
+
 /* Utilities
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.u-text-muted { color: #eee; }
+.u-text-center { text-align: center; }
+.u-text-muted { color: #999; }
 .u-text-small { font-size: 1.3rem; }
 .u-text-upper { text-transform: uppercase; }
 
@@ -40,6 +42,10 @@ a { text-decoration: none; }
 .u-mts { margin-top: 1rem !important; }
 .u-mtl { margin-top: 4rem !important; }
 
+
+/* Components
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
 .badge {
     padding: 0.5rem 1rem;
     background: #444;
@@ -49,6 +55,7 @@ a { text-decoration: none; }
 }
 .badge-primary {
     background-color: #1EAEDB;
+    color: #fff;
 }
 
 .panel {
@@ -68,6 +75,176 @@ a { text-decoration: none; }
     border: 1px solid rgba(45, 112, 145, 0.3)
 }
 
+.article + .article {
+    border-top: 1px #eee solid;
+    margin-top: 2rem;
+    padding-top: 2rem;
+}
+
+.article-title {
+    margin-bottom: 0;
+}
+
+.article-title a,
+.article-title a:hover {
+    color: #000;
+}
+
+.article-meta {
+    margin-top: 0.5rem;
+    color: #999;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+
+.article-content {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+
+.flex {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-inline {
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+}
+
+/*
+ * Fixes initial flex-shrink value in IE10
+ */
+
+.flex > *,
+.flex-inline > * { -ms-flex-negative: 1; }
+
+
+/* Alignment
+ ========================================================================== */
+
+/*
+ * Vertical alignment
+ * Default value is `stretch`
+ */
+
+.flex-top {
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+}
+
+.flex-middle {
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.flex-bottom {
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+}
+
+/*
+ * Horizontal alignment
+ * Default value is `flex-start`
+ */
+
+.flex-center {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.flex-right {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+.flex-space-between {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+
+.flex-space-around {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+}
+
+
+/* Direction
+ ========================================================================== */
+
+.flex-row-reverse {
+    -ms-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.flex-column {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.flex-column-reverse {
+    -ms-flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+
+
+/* Item dimensions
+ ========================================================================== */
+
+/*
+ * Initial: 0 1 auto
+ * Content dimensions, but shrinks
+ */
+
+/*
+ * No Flex: 0 0 auto
+ * Content dimensions
+ */
+
+.flex-item-none {
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+}
+
+/*
+ * Relative Flex: 1 1 auto
+ * Space is allocated considering content
+ * 1. Fixes flex-shrink value in IE10
+ */
+
+.flex-item-auto {
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
+    /* 1 */
+    -ms-flex-negative: 1;
+}
+
+/*
+ * Absolute Flex: 1 1 0%
+ * Space is allocated solely based on flex
+ */
+
+.flex-item-1 {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
 
 .site-header > div,
 .navbar {
@@ -77,6 +254,7 @@ a { text-decoration: none; }
 }
 
 .site-header {
+    padding-top: 3rem;
     margin-bottom: 3rem;
     border-bottom: 1px #eee solid;
 }
@@ -109,12 +287,22 @@ a { text-decoration: none; }
 }
 
 .navbar {
-    margin: 4rem 0;
-    font-size: 1.3rem;
+    display: block;
+    margin: 6rem 0;
+    font-size: 1.2rem;
+}
+
+.navbar > ul {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
 }
 
 .navbar > ul > li {
-    float: left;
     font-weight: 300;
 }
 
@@ -154,4 +342,9 @@ a { text-decoration: none; }
     left: 0;
     width: 30%;
     border-top: 1px #eee solid;
+}
+
+.container-small {
+    max-width: 680px;
+    margin: 0 auto;
 }
