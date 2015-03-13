@@ -5,4 +5,10 @@ created : 2015-03-12
 ===
 
 
-Bogging seems so easy!
+<!-- part: teaser -->
+
+This article comes with a teaser!
+
+<!-- part: main -->
+
+This the main content...

@@ -179,7 +179,7 @@ $site->service('renderer', function() use($site) {
 
 
 // load modules
-$site->loadModules([CP_ROOT_DIR.'/system/modules', CP_ROOT_DIR.'/site/modules']);
+$site->loadModules([CP_ROOT_DIR.'/system/modules', CP_ROOT_DIR.'/modules']);
 
 // bootstrap site
 include(CP_ROOT_DIR.'/site/bootstrap.php');

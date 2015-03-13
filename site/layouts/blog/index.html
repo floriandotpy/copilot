@@ -15,13 +15,20 @@
 
     @foreach($articles as $index => $article)
 
-        @render('layouts:blog/article.html', compact('article', 'index'))
+        @if( $article->content('teaser') )
+
+            @render('layouts:blog/teaser.html', compact('article', 'index'))
+
+        @else
+
+            @render('layouts:blog/article.html', compact('article', 'index'))
+
+        @endif
 
     @endforeach
 
 @endif
 
-<hr>
 
 <h5>Note:</h5>
 

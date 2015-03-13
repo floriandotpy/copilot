@@ -4,5 +4,4 @@ created : 2015-03-11
 
 ===
 
-
-**This is the first Blog entry.**
+This is the first Blog entry.

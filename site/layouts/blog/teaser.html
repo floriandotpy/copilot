@@ -1,0 +1,24 @@
+
+@if( isset($article) )
+
+<article>
+
+    <h3>{{ $article->meta('title') }}</h3>
+
+    @if( $article->meta('created') )
+
+    <small>{{ date('d. M Y', strtotime($article->meta('created'))) }}</small>
+
+    @endif
+
+    {{ $article->content('teaser') }}
+
+    <p>
+        <a href="{{ $article->url() }}">Read more...</a>
+    </p>
+
+</article>
+
+<hr>
+
+@endif

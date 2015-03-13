@@ -1,12 +1,30 @@
 
-@if( isset($article) )
+@if(!isset($index))
+
+    <!-- The article is not rendered by blog/index -->
+
+    @extend('theme:layout.html')
+
+    {% $article = $page %}
+
+    <p>
+        <a href="@route('/blog')">Blog</a> / Article
+    </p>
+
+@endif
 
 <article>
 
     <h3>{{ $article->meta('title') }}</h3>
 
+    @if( $article->meta('created') )
+
+    <small>{{ date('d. M Y', strtotime($article->meta('created'))) }}</small>
+
+    @endif
+
     {{ $article->content() }}
 
 </article>
 
-@endif
+<hr>
