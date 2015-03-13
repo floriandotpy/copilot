@@ -345,6 +345,7 @@ a { text-decoration: none; }
 }
 
 .container-small {
+    position: relative;
     max-width: 680px;
     margin: 0 auto;
 }
