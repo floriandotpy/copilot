@@ -1,0 +1,56 @@
+<html>
+    <head>
+
+        <title>{{ $meta->get('title', $site['site.title']) }} </title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <link rel="icon" href="@base('/favicon.png')" type="image/png">
+
+        @assets(['theme:css/site.css', 'theme:js/site.js'])
+        @assets($meta->assets)
+
+        @trigger('site.header')
+
+    </head>
+    <body>
+
+        <header class="site-header">
+
+            <div class="container">
+                <a class="site-brand" href="@route('/')" title="Get me home">
+                    <img src="@url('theme:media/logo.svg')" alt="Logo">
+                </a>
+            </div>
+
+        </header>
+
+        <div class="container">
+            <nav class="navbar">@menu('main')</nav>
+        </div>
+
+        <main class="site-main">
+
+            <div class="container">
+                {{ $content_for_layout }}
+            </div>
+
+        </main>
+
+        <footer class="site-footer">
+
+            <div class="container">
+
+                <hr>
+
+                <strong>&mdash; Built with <a href="http://cocopi.co">Copilot</a></strong>
+
+            </div>
+
+        </footer>
+
+        @trigger('site.footer')
+
+    </body>
+</html>

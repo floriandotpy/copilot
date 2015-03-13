@@ -1,0 +1,8 @@
+*~
+*.diff
+*.patch
+.DS_Store
+.project
+.settings
+.idea
+/storage/*
