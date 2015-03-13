@@ -6,7 +6,7 @@
 
 html {
     min-height: 100vh;
-    background: #fff;
+    background: #F8F7F5;
     font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -63,6 +63,10 @@ a { text-decoration: none; }
     border: 1px #eee solid;
     border-radius: 2px;
     margin: 2rem 0;
+}
+
+.panel-box {
+    background: #fff;
 }
 
 .panel + .panel {
@@ -255,31 +259,24 @@ a { text-decoration: none; }
 
 .site-header {
     padding-top: 3rem;
-    margin-bottom: 3rem;
-    border-bottom: 1px #eee solid;
 }
 
 .site-brand {
     display: block;
-    padding: .5rem;
     margin: 0 auto;
-    background: #fff;
+    background: #F8F7F5;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
     color: #000;
-    border-radius: 50%;
-    transform: translateY(50%);
-    -webkit-transform: translateY(50%);
-    border: 1px #1EAEDB solid;
-    width: 50px;
-    height: 50px;
+
+    width: 80px;
+    height: 80px;
 }
 
 .site-brand img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    width: 80px;
+    height: 80px;
 }
 
 .site-brand:hover, .site-brand:visited {
@@ -288,7 +285,7 @@ a { text-decoration: none; }
 
 .navbar {
     display: block;
-    margin: 6rem 0;
+    margin: 2rem 0;
     font-size: 1.2rem;
 }
 
@@ -341,7 +338,7 @@ a { text-decoration: none; }
     top: 0;
     left: 0;
     width: 30%;
-    border-top: 1px #eee solid;
+    border-top: 1px #c0b7a5 solid;
 }
 
 .container-small {
