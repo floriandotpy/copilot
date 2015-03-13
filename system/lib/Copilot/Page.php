@@ -89,7 +89,7 @@ class Page {
      */
     public function set($key, $value) {
 
-        $this->meta->extend([$name => $value]);
+        $this->meta->extend([$key => $value]);
 
         return $this;
     }
@@ -134,8 +134,8 @@ class Page {
 
         if (is_null($this->url)) {
 
-            $this->url = str_replace(copi::path('content:'), '/', $this->path);
-            $this->url = copi::routeUrl($this->url);
+            $this->url = str_replace(copi::$app->path('content:'), '/', $this->path);
+            $this->url = copi::$app->routeUrl($this->url);
             $this->url = str_replace($this->filename, ($this->isIndex() ? '' : $this->basename), $this->url);
         }
 
@@ -148,6 +148,14 @@ class Page {
      */
     public function isIndex() {
         return ($this->basename == 'index');
+    }
+
+    /**
+     * [isRootIndex description]
+     * @return boolean [description]
+     */
+    public function isRootIndex() {
+        return ($this->isIndex() && copi::$app['route'] == '/'); // @TODO make more pretty
     }
 
     /**
@@ -209,11 +217,18 @@ class Page {
      * [siblings description]
      * @return [type]
      */
-    public function siblings() {
+    public function siblings($filter = null) {
 
         if ($this->isIndex())  {
 
-            $collection = PageCollection::fromFolder(dirname($this->dir))->not($this);
+            if ($this->isRootIndex()) {
+
+                $collection = new PageCollection([]);
+
+            } else {
+
+                $collection = PageCollection::fromFolder(dirname($this->dir))->not($this);
+            }
 
         } else {
 
@@ -222,6 +237,11 @@ class Page {
             if (!$this->isIndex()) {
                 $collection = $collection->not($this->parent());
             }
+        }
+
+        // apply filter
+        if ($filter && $collection->count()) {
+            $collection = $collection->filter($filter);
         }
 
         return $collection;
@@ -238,7 +258,7 @@ class Page {
 
         if (strpos($path, ':') !== false) {
 
-            $dir = copi::path($path);
+            $dir = copi::$app->path($path);
 
         } else {
 
@@ -322,7 +342,7 @@ class Page {
 
             $files = [];
 
-            foreach(copi::helper('fs')->ls($this->_getPath($path)) as $file) {
+            foreach(copi::$app->helper('fs')->ls($this->_getPath($path)) as $file) {
 
                 if ($file->isFile()) {
                     $files[] = new Resource($file->getRealPath());
@@ -388,15 +408,24 @@ class Page {
             }
 
             if ($this->ext == 'md') {
-                $content = copi::helper('markdown')->parse($content);
+                $content = copi::$app->helper('markdown')->parse($content);
             }
 
             // try to fix relative urls
             $this->content = copi::helper('utils')->fixRelativeUrls($content, $this->absUrl.'/');
 
+            copi::$app->trigger('copi.page.content', [$this]);
         }
 
         return $part ? $this->parts($part) : $this->content;
+    }
+
+    /**
+     * [setContent description]
+     * @param [type] $content [description]
+     */
+    public function setContent($content) {
+        $this->content = $content;
     }
 
     /**
@@ -409,7 +438,6 @@ class Page {
         $content = $this->content();
 
         if ($layout = $this->meta('layout', 'default')) {
-
 
             $slots['page']         = $this;
             $slots['page_content'] = $content;
@@ -428,6 +456,8 @@ class Page {
 
         // try to fix relative urls
         $content = copi::helper('utils')->fixRelativeUrls($content, $this->absUrl.'/');
+
+        copi::trigger('copi.page.render', [&$content]);
 
         return $content;
     }
@@ -489,7 +519,7 @@ class Page {
         }
 
         if ($code) {
-            $meta += copi::helper('yaml')->fromString($code);
+            $meta += copi::$app->helper('yaml')->fromString($code);
         }
 
         $meta = new \ContainerArray($meta);
@@ -513,7 +543,7 @@ class Page {
 
             if (!isset(self::$metaCache[$metafile])) {
 
-                self::$metaCache[$metafile] = file_exists($metafile) ? copi::helper('yaml')->fromFile($metafile) : false;
+                self::$metaCache[$metafile] = file_exists($metafile) ? copi::$app->helper('yaml')->fromFile($metafile) : false;
             }
 
             if (self::$metaCache[$metafile]) {
@@ -533,7 +563,7 @@ class Page {
      */
     protected function _getPath($path) {
 
-        return (strpos($path, ':') !== false) ? copi::path($path) : $this->dir."/".trim($path, '/');
+        return (strpos($path, ':') !== false) ? copi::$app->path($path) : $this->dir."/".trim($path, '/');
     }
 
     /**

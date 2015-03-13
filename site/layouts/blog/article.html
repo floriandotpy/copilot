@@ -1,0 +1,12 @@
+
+@if( isset($article) )
+
+<article>
+
+    <h3>{{ $article->meta('title') }}</h3>
+
+    {{ $article->content() }}
+
+</article>
+
+@endif

@@ -31,7 +31,7 @@
 
     .error-message {
         margin: 20px 0;
-        color: #fd86e7;
+        color: #1EAEDB;
     }
 
     .error-info {

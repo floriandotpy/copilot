@@ -189,7 +189,7 @@ include(CP_ROOT_DIR.'/site/bootstrap.php');
  */
 
 // map content pages to route
-$site->on("site.init", function() {
+$site->on("copi.init", function() {
 
     $this->bind('/*', function() {
 

@@ -169,10 +169,7 @@ class DataCollection implements \Iterator {
      */
     protected function setItems($items) {
 
-        $this->items    = $items;
-        $this->position = 0;
-
-        $collection = clone $this;
+        $collection = new self($items, $this);
 
         return $collection;
     }

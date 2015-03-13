@@ -42,7 +42,7 @@ class copi {
      * @return [type] [description]
      */
     public static function run() {
-        return self::$app->trigger('site.init')->run();
+        return self::$app->trigger('copi.init')->run();
     }
 
     /**

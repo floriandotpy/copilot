@@ -266,10 +266,7 @@ class PageCollection implements \Iterator {
      */
     protected function setPages($pages) {
 
-        $this->pages    = $pages;
-        $this->position = 0;
-
-        $collection = clone $this;
+        $collection = new self($pages, $this);
 
         return $collection;
     }

@@ -81,7 +81,7 @@ class Resource {
 
         $size = filesize($size);
 
-        return $format ? copi::helper('utils')->formatSize($size) : $size;
+        return $format ? copi::$app->helper('utils')->formatSize($size) : $size;
     }
 
     /**
@@ -124,7 +124,7 @@ class Resource {
             return '';
         }
 
-        return copi::pathToUrl($this->path);
+        return copi::$app->pathToUrl($this->path);
     }
 
     /**

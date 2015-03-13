@@ -1,0 +1,28 @@
+
+@extend('theme:layout.html')
+
+
+{% $articles = $page->meta('articles', []) %}
+
+
+<h1>{{ $page->meta('title') }}</h1>
+
+@if( !count($articles) )
+
+    Sorry, no articles to read right now.
+
+@else
+
+    @foreach($articles as $index => $article)
+
+        @render('layouts:blog/article.html', compact('article', 'index'))
+
+    @endforeach
+
+@endif
+
+<hr>
+
+<h5>Note:</h5>
+
+To create blog entries, just create files in <code>content/blog/articles</code>
