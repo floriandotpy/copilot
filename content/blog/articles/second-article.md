@@ -8,7 +8,9 @@ created : 2015-03-12
 
 <!-- part: teaser -->
 
-This article comes with a teaser! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse fermentum lobortis porta.
+**This article comes with a teaser!**
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse fermentum lobortis porta.
 
 
 <!-- part: main -->

@@ -2,7 +2,9 @@
 
 return [
 
-    'debug'        => in_array($_SERVER['SERVER_NAME'], ['localhost', '::1']),
+    // enable debug mode by default on local dev env:
+    'debug'        => preg_match('/(localhost|::1|\.dev)$/', $_SERVER['SERVER_NAME']),
+
     'app.name'     => 'site',
     'timezone'     => 'UTC',
     'site.title'   => 'Site',

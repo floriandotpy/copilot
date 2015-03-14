@@ -83,6 +83,16 @@ a { text-decoration: none; }
     font-size: 1.2rem;
 }
 
+.navbar a {
+    text-decoration: none;
+    display: block;
+}
+
+.navbar ul {
+    padding: 0;
+    list-style: none;
+}
+
 .navbar > ul {
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -94,29 +104,55 @@ a { text-decoration: none; }
 }
 
 .navbar > ul > li {
+    position: relative;
     font-weight: 300;
+    z-index: 2;
 }
 
 .navbar > ul > li > a {
-    display: block;
     margin-right: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px transparent solid;
     text-transform: uppercase;
 }
 
-.navbar > ul > li.active > a {
+.navbar > ul li.active a {
     color: #000;
+}
+
+.navbar > ul > li.active > a {
     border-color: #000;
 }
 
-.navbar a {
-    text-decoration: none;
+.navbar > ul > li > ul {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    background: #fff;
+    margin: 30px 0 0 0;
+    padding: 1rem;
+    width: 120px;
+    border: 1px #ccc solid;
+    border-radius: 2px;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity .3s, margin-top .3s;
+    pointer-events: none;
+    z-index: 3;
 }
 
-.navbar ul {
-    padding: 0;
-    list-style: none;
+.navbar > ul > li:hover {
+    z-index: 3;
+}
+
+.navbar > ul > li:hover > ul {
+    pointer-events:  auto;
+    margin-top: -2px;
+    opacity: 1;
+}
+
+.navbar > ul > li > ul ul {
+    margin-left: 10px;
 }
 
 .site-footer > div {
