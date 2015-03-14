@@ -8,7 +8,7 @@
     {% $article = $page %}
 
     <p>
-        <a class="button button-primary" href="@route('/blog')">Back to index</a>
+        <a class="button" href="@route('/blog')">Back to index</a>
     </p>
 
 @endif
@@ -20,6 +20,7 @@
     @if( $article->meta('created') )
 
     <div class="article-meta">
+        <a class="fa fa-bookmark" href="{{ $article->permalink() }}" title="Permalink" rel="bookmark"></a>
         {{ date('d. M Y', strtotime($article->meta('created'))) }} · By {{ $article->meta('author') }}
     </div>
 

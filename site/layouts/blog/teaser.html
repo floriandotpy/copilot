@@ -8,6 +8,7 @@
     @if( $article->meta('created') )
 
     <div class="article-meta">
+        <a class="fa fa-bookmark" href="{{ $article->permalink() }}" title="Permalink" rel="bookmark"></a>
         {{ date('d. M Y', strtotime($article->meta('created'))) }} · By {{ $article->meta('author') }}
     </div>
 

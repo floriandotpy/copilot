@@ -143,6 +143,14 @@ class Page {
     }
 
     /**
+     * [permalink description]
+     * @return [type] [description]
+     */
+    public function permalink() {
+        return copi::$app->getSiteUrl(false).$this->url();
+    }
+
+    /**
      * [isIndex description]
      * @return boolean
      */
