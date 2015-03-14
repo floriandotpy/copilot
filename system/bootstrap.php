@@ -155,7 +155,7 @@ $copilot->service('renderer', function() use($copilot) {
             'load'     => '<?php copi::$meta->assets->append(expr); ?>',
         ];
 
-        // add shourtcuts for cockpit api
+        // add macros for cockpit api
         if (function_exists('cockpit')) {
 
             $replace['form']   = '<?php cockpit()->module("forms")->form(expr); ?>';
@@ -174,18 +174,6 @@ $copilot->service('renderer', function() use($copilot) {
 
         return $content;
     });
-
-    // add shourtcuts for cockpit api
-    if (function_exists('cockpit')) {
-
-        $renderer->extend(function($content){
-
-            $content = preg_replace('/(\s*)@form\((.+?)\)/'  , '$1<?php cockpit()->module("forms")->form($2); ?>', $content);
-            $content = preg_replace('/(\s*)@region\((.+?)\)/', '$1<?php echo cockpit()->module("regions")->render($2); ?>', $content);
-
-            return $content;
-        });
-    }
 
     return $renderer;
 });
