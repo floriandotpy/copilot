@@ -224,8 +224,12 @@ $copilot->on("after", function() {
     define('CP_DURATION_TIME', CP_END_TIME - CP_START_TIME);
     define('CP_MEMORY_USAGE' , (memory_get_peak_usage(false)/1024/1024));
 
+    /**
+     * load error layouts if status is 500 or 404
+     */
     switch ($this->response->status) {
-        case 500:
+
+        case 500: // system error
 
             if ($this['debug']) {
 
@@ -242,19 +246,19 @@ $copilot->on("after", function() {
                     $this->response->body = '{"error": "500", "message": "system error"}';
                 } else {
                     $this->layout         = false;
-                    $this->response->body = copi::view("theme:error/500.php");
+                    $this->response->body = copi::view("theme:error/500.html");
                 }
             }
 
             break;
 
-        case 404:
+        case 404: // route | file not found
 
             if ($this->req_is('ajax')) {
                 $this->response->body = '{"error": "404", "message":"File not found"}';
             } else {
                 $this->layout         = false;
-                $this->response->body = copi::view("theme:error/404.php");
+                $this->response->body = copi::view("theme:error/404.html");
             }
             break;
     }

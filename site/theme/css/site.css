@@ -12,6 +12,7 @@ html {
 
 body {
     font-size: 1.8em;
+    min-height: 100vh;
 }
 
 h1 { font-size: 3.0rem; margin-bottom: 3rem; }
@@ -272,11 +273,26 @@ a { text-decoration: none; }
 
     width: 80px;
     height: 80px;
+
+    -webkit-animation: logofly 2.5s ease-out -2.5s infinite alternate forwards;
+    animation: logofly 2.5s ease-out -2.5s infinite alternate forwards;
 }
 
 .site-brand img {
     width: 80px;
     height: 80px;
+}
+
+@keyframes logofly {
+    0% { transform: translateY(0%); }
+    50% { transform: translateY(-10%); }
+    100% { transform: translateY(0%); }
+}
+
+@-webkit-keyframes logofly {
+    0% { -webkit-transform: translateY(0%); }
+    50% { -webkit-transform: translateY(-10%); }
+    100% { -webkit-transform: translateY(0%); }
 }
 
 .site-brand:hover, .site-brand:visited {
