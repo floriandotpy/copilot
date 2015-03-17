@@ -5,7 +5,7 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .u-text-center { text-align: center; }
 .u-text-muted { color: #999; }
-.u-text-small { font-size: 1.3rem; }
+.u-text-small { font-size: 0.8rem; }
 .u-text-upper { text-transform: uppercase; }
 
 .u-mb { margin-bottom: 2rem !important; }
@@ -25,6 +25,7 @@
     font-size: 1rem;
     color: #fff;
     border-radius: 2px;
+    text-transform: uppercase;
 }
 .badge-primary {
     background-color: #1EAEDB;
