@@ -110,19 +110,19 @@ a { text-decoration: none; }
 }
 
 .navbar > ul > li > a {
-    margin-right: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px transparent solid;
+    padding: 0.8rem 1.5rem;
     text-transform: uppercase;
     font-weight: bold;
-}
-
-.navbar > ul li.active a {
-    color: #1EAEDB;
+    border-radius: 3px;
 }
 
 .navbar > ul > li.active > a {
-    border-color: #1EAEDB;
+    color: #000;
+    background: #ff8;
+}
+
+.navbar > ul ul li.active a {
+    font-weight: bold;
 }
 
 .navbar > ul > li > ul {
@@ -172,8 +172,6 @@ a { text-decoration: none; }
     border-top: 1px #c0b7a5 solid;
 }
 
-.container-small {
+.container {
     position: relative;
-    max-width: 780px;
-    margin: 0 auto;
 }
