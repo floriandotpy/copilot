@@ -170,7 +170,7 @@ class Page {
      * [isVisible description]
      * @return boolean
      */
-    public function isVsible() {
+    public function isVisible() {
         return (substr($this->filename, 0, 1) !== '_');
     }
 
@@ -179,7 +179,7 @@ class Page {
      * @return boolean
      */
     public function isHidden() {
-        return !$this->isVsible();
+        return !$this->isVisible();
     }
 
     /**

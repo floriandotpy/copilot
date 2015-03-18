@@ -154,7 +154,7 @@ class PageCollection implements \Iterator {
 
         foreach ($this->pages as &$page) {
 
-            if ($page->isVsible()) {
+            if ($page->isVisible()) {
                 $pages[] = $page;
             }
         }
@@ -172,7 +172,7 @@ class PageCollection implements \Iterator {
 
         foreach ($this->pages as &$page) {
 
-            if (!$page->isVsible()) {
+            if (!$page->isVisible()) {
                 $pages[] = $page;
             }
         }
